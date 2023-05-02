@@ -1,0 +1,46 @@
+﻿@page "/"
+@using BlazorWasmSignalR.Wasm.Shared
+@using System.Security.Cryptography;
+
+<PageTitle>Real-time charts in Blazor WebAssembly</PageTitle>
+
+<h1>Real-time charts in Blazor WebAssembly</h1>
+
+<div class="chart-container">
+    <div class="radial-chart">
+        <ApexChart TItem="DataItem"
+                   Title="Transactions"
+                   Options="@_radialChartOptions"
+                   @ref="_radialChart">
+
+            <ApexPointSeries TItem="DataItem"
+                             Items="_radialData"
+                             SeriesType="SeriesType.RadialBar"
+                             Name="Variation"
+                             XValue="@(e => "Variation")"
+                             YAggregate="@(e => e.Average(e => e.Value))" />
+        </ApexChart>
+    </div>
+
+    <div class="line-chart">
+        <ApexChart TItem="DataItem"
+                   Title="Currency Exchange Rates in USD"
+                   Options="@_lineChartOptions"
+                   @ref="_lineChart">
+
+            <ApexPointSeries TItem="DataItem"
+                             Items="_yenSeries"
+                             Name="Yen"
+                             SeriesType="SeriesType.Line"
+                             XValue="@(e => e.Minute)"
+                             YAggregate="@(e => e.Sum(e => e.Value))" />
+
+            <ApexPointSeries TItem="DataItem"
+                             Items="_euroSeries"
+                             Name="Euro"
+                             SeriesType="SeriesType.Line"
+                             XValue="@(e => e.Minute)"
+                             YAggregate="@(e => e.Sum(e => e.Value))" />
+        </ApexChart>
+    </div>
+</div>

@@ -1,0 +1,11 @@
+﻿.chart-container {
+    display: flex;
+}
+
+.radial-chart {
+    flex-grow: 1;
+}
+
+.line-chart {
+    flex-grow: 3;
+}
